@@ -1,9 +1,9 @@
 CREATE TABLE PRODUCT
 (
-  title VARCHAR(100),
+  title VARCHAR(500),
   id INT NOT NULL,
   ASIN CHAR(10) NOT NULL,
-  _group VARCHAR(5),
+  _group VARCHAR(8),
   salesrank INT,
   PRIMARY KEY (id),
   UNIQUE (ASIN)
