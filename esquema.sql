@@ -1,9 +1,9 @@
 CREATE TABLE PRODUCT
 (
-  title VARCHAR(100),
+  title VARCHAR(500),
   id INT NOT NULL,
   ASIN CHAR(10) NOT NULL,
-  _group VARCHAR(5),
+  _group VARCHAR(15),
   salesrank INT,
   PRIMARY KEY (id),
   UNIQUE (ASIN)
@@ -38,7 +38,7 @@ CREATE TABLE REVIEW
 CREATE TABLE CATEGORY
 (
   id INT NOT NULL,
-  name VARCHAR(50),
+  name VARCHAR(100),
   parent_id INT,
   PRIMARY KEY (id),
   FOREIGN KEY (parent_id) REFERENCES CATEGORY(id)
