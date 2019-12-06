@@ -8,6 +8,13 @@ import re
 import gzip
 from tqdm import tqdm
 
+def rename_review_key(entry):
+  if(b'reviews' in entry and type(entry[b'reviews']) == type('')):
+    temp = entry[b'reviews']
+    del entry[b'reviews']
+    entry['review_stats'] = temp
+  return entry
+
 def parse(filename, total):
   IGNORE_FIELDS = ['Total items', 'reviews']
   f = gzip.open(filename, 'r')
@@ -25,6 +32,7 @@ def parse(filename, total):
         entry["reviews"] = reviews
       if categories:
         entry["categories"] = categories
+      entry = rename_review_key(entry)
       yield entry
       entry = {}
       categories = []
@@ -60,7 +68,7 @@ def parse(filename, total):
     entry["reviews"] = reviews
   if categories:
     entry["categories"] = categories
-    
+  entry = rename_review_key(entry)
   yield entry
 
 
