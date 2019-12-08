@@ -57,7 +57,7 @@ def get_product_similar_sql(content):
 	similar_items = content['similar_items']
 	sql_commands = []
 	for  similar in similar_items:
-		sql = "INSERT INTO PRODUCT_SIMILAR (similar_asin, product_asin) VALUES ('" + similar +"', '" + content['ASIN'] + "')"
+		sql = "INSERT INTO PRODUCT_SIMILAR (similar_asin, product_id) VALUES ('" + similar +"', '" + content['id'] + "')"
 		sql_commands.append(sql)
 	return sql_commands
 
@@ -152,7 +152,7 @@ if __name__ == '__main__':
 		cur.execute("CREATE TABLE CUSTOMER(id CHAR(14) NOT NULL, PRIMARY KEY (id))")
 
 		cur.execute("DROP TABLE IF EXISTS PRODUCT_SIMILAR")
-		cur.execute("CREATE TABLE PRODUCT_SIMILAR(similar_asin CHAR(10) NOT NULL, product_asin CHAR(10) NOT NULL,PRIMARY KEY (similar_asin, product_asin),FOREIGN KEY (product_asin) REFERENCES PRODUCT(ASIN))")
+		cur.execute("CREATE TABLE PRODUCT_SIMILAR(similar_asin CHAR(10) NOT NULL, product_id INT NOT NULL, PRIMARY KEY (similar_asin, product_id), FOREIGN KEY (product_id) REFERENCES PRODUCT(id) )")
 
 		cur.execute("DROP TABLE IF EXISTS  REVIEW")
 		cur.execute("CREATE TABLE REVIEW(rating INT,votes INT,_date Date, helpful INT, product_id INT NOT NULL, customer_id CHAR(14) NOT NULL,FOREIGN KEY (product_id) REFERENCES PRODUCT(id),FOREIGN KEY (customer_id) REFERENCES CUSTOMER(id))")

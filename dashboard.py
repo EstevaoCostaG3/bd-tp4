@@ -33,7 +33,7 @@ if __name__ == '__main__':
 		print()
 
 		print("Dado um produto, listar os produtos similares com maiores vendas do que ele:")
-		cur.execute("SELECT P2.* FROM PRODUCT P1, PRODUCT P2, PRODUCT_SIMILAR PS WHERE P1.id = 2 AND PS.product_asin = P1.asin AND PS.similar_asin = P2.asin AND P2.salesrank < P1.salesrank")
+		cur.execute("SELECT P2.* FROM PRODUCT P1, PRODUCT P2, PRODUCT_SIMILAR PS WHERE P1.id = 2 AND PS.product_id = P1.id AND PS.similar_asin = P2.asin AND P2.salesrank < P1.salesrank")
 		rows = cur.fetchall()
 		show_results_as_table(rows, ['title', 'id', 'asin', 'group', 'salesrank'])
 		print()
@@ -61,7 +61,7 @@ if __name__ == '__main__':
 		rows = cur.fetchall()
 		show_results_as_table(rows, ['name', 'avg(helpful)'])
 		print()
-		
+
 		print("Listar os 10 clientes que mais fizeram comentários por grupo de produto:")
 		cur.execute("SELECT T._group, T.count, T.customer_id FROM (SELECT P._group, RANK() OVER (PARTITION BY P._group ORDER BY COUNT(*) DESC, R.customer_id), COUNT(*), R.customer_id FROM REVIEW R, PRODUCT P WHERE P.id=R.product_id GROUP BY R.customer_id, P._group ORDER BY P._group, COUNT(*) DESC) AS T WHERE T.rank <= 10 ORDER BY T._group, T.rank")
 		rows = cur.fetchall()
