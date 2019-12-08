@@ -18,9 +18,9 @@ CREATE TABLE CUSTOMER
 CREATE TABLE PRODUCT_SIMILAR
 (
   similar_asin CHAR(10) NOT NULL,
-  product_asin CHAR(10) NOT NULL,
-  PRIMARY KEY (similar_asin, product_asin),
-  FOREIGN KEY (product_asin) REFERENCES PRODUCT(ASIN)
+  product_id INT NOT NULL,
+  PRIMARY KEY (similar_asin, product_id),
+  FOREIGN KEY (product_id) REFERENCES PRODUCT(id)
 );
 
 CREATE TABLE REVIEW
