@@ -65,6 +65,14 @@ if __name__ == '__main__':
 		for row in rows:
 			print(row)
 
+		print("\t")
+
+		print("Listar os 10 clientes que mais fizeram comentários por grupo de produto:")
+		cur.execute("SELECT * FROM (SELECT COUNT(*), R.customer_id, P._group, RANK() OVER (PARTITION BY P._group ORDER BY COUNT(*) DESC, R.customer_id) FROM REVIEW R, PRODUCT P WHERE P.id=R.product_id GROUP BY R.customer_id, P._group ORDER BY P._group, COUNT(*) DESC) AS T WHERE T.rank <= 10 ORDER BY T._group, T.rank;")
+		rows = cur.fetchall()
+		for row in rows:
+			print(row)
+
 	except psycopg2.DatabaseError as e:
 		if(con):
 		    con.rollback()
