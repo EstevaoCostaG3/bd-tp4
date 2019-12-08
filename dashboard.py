@@ -25,7 +25,8 @@ if __name__ == '__main__':
 		cur = con.cursor()
 
 		con.commit()
-
+		print('Nota: Nas consultas onde se diz "dado um produto", o produto cujo id vale 2 foi utilizado')
+		print("Consultas:")
 		print("Dado produto, listar os 5 comentários mais úteis e com maior avaliação e os 5 comentários mais úteis e com menor avaliação:")
 		cur.execute("(SELECT helpful, rating, product_id, customer_id, _date FROM REVIEW  WHERE product_id=2 ORDER BY helpful DESC, rating DESC LIMIT 5) UNION ALL (SELECT helpful, rating, product_id, customer_id, _date FROM REVIEW WHERE product_id=2 ORDER BY rating ASC, helpful DESC LIMIT 5)")
 		rows = cur.fetchall()
