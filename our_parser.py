@@ -145,22 +145,22 @@ if __name__ == '__main__':
 		database = sys.argv[4]
 		con = psycopg2.connect(host=host, database=database, user=user, password=password)
 		cur = con.cursor()
-		cur.execute("DROP TABLE IF EXISTS PRODUCT")
+		cur.execute("DROP TABLE IF EXISTS PRODUCT CASCADE")
 		cur.execute("CREATE TABLE PRODUCT(title VARCHAR(500), id INT NOT NULL, ASIN CHAR(10) NOT NULL, _group VARCHAR(15), salesrank INT, PRIMARY KEY (id),UNIQUE (ASIN))")
 
-		cur.execute("DROP TABLE IF EXISTS CUSTOMER")
+		cur.execute("DROP TABLE IF EXISTS CUSTOMER CASCADE")
 		cur.execute("CREATE TABLE CUSTOMER(id CHAR(14) NOT NULL, PRIMARY KEY (id))")
 
-		cur.execute("DROP TABLE IF EXISTS PRODUCT_SIMILAR")
+		cur.execute("DROP TABLE IF EXISTS PRODUCT_SIMILAR CASCADE")
 		cur.execute("CREATE TABLE PRODUCT_SIMILAR(similar_asin CHAR(10) NOT NULL, product_id INT NOT NULL, PRIMARY KEY (similar_asin, product_id), FOREIGN KEY (product_id) REFERENCES PRODUCT(id) )")
 
-		cur.execute("DROP TABLE IF EXISTS  REVIEW")
+		cur.execute("DROP TABLE IF EXISTS  REVIEW CASCADE")
 		cur.execute("CREATE TABLE REVIEW(rating INT,votes INT,_date Date, helpful INT, product_id INT NOT NULL, customer_id CHAR(14) NOT NULL,FOREIGN KEY (product_id) REFERENCES PRODUCT(id),FOREIGN KEY (customer_id) REFERENCES CUSTOMER(id))")
 
-		cur.execute("DROP TABLE IF EXISTS  CATEGORY")
+		cur.execute("DROP TABLE IF EXISTS  CATEGORY CASCADE")
 		cur.execute("CREATE TABLE CATEGORY(id INT NOT NULL,name VARCHAR(100),parent_id INT,PRIMARY KEY (id),FOREIGN KEY (parent_id) REFERENCES CATEGORY(id))")
 
-		cur.execute("DROP TABLE IF EXISTS PRODUCT_CATEGORY")
+		cur.execute("DROP TABLE IF EXISTS PRODUCT_CATEGORY CASCADE")
 		cur.execute("CREATE TABLE PRODUCT_CATEGORY(product_id INT NOT NULL,category_id INT NOT NULL,PRIMARY KEY (product_id, category_id),FOREIGN KEY (product_id) REFERENCES PRODUCT(id),FOREIGN KEY (category_id) REFERENCES CATEGORY(id))")
 		for command in generate_inserts():
 			if(command):
