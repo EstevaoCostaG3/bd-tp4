@@ -1,7 +1,7 @@
 """
-Parser for Amazon product co-purchasing network metadata
- 
-https://snap.stanford.edu/data/amazon-meta.html
+Nota:
+Este programa foi adaptado de 
+https://github.com/chezou/amazon-movie-review/blob/master/src/preparation/parse-amazon-meta.py
 """
 
 import re
