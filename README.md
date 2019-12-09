@@ -14,6 +14,8 @@ Banco de Dados - Trabalho Prático 4:
 
 ### Usage
 
+Clone o repositório e baixe os [dados de produtos da Amazon](https://snap.stanford.edu/data/amazon-meta.html). Mova o arquivo baixado para o diretório anterior ao diretório do repositório (`../bd-tp4`).
+
 Parsing dos dados de produtos:
  
 ```python3 parser.py > ../results.json```
